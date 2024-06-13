@@ -14,22 +14,22 @@
   "dependencies": {
     "@wundergraph/nextjs": "workspace:*",
     "@wundergraph/sdk": "workspace:*",
-    "graphql": "^16.3.0",
-    "jose": "^4.11.1",
-    "next": "^14.0.1",
-    "next-auth": "^4.24.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.0.0",
-    "swr": "^2.2.0"
+    "graphql": "^16.8.1",
+    "jose": "^5.4.0",
+    "next": "^14.2.4",
+    "next-auth": "^4.24.7",
+    "react": "18.2.0",
+    "react-dom": "^18.3.1",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
-    "@types/node": "^18.16.0",
-    "@types/react": "^18.0.6",
-    "node-fetch": "^2.6.7",
+    "@types/node": "^18.19.34",
+    "@types/react": "^18.3.3",
+    "node-fetch": "^2.7.0",
     "npm-run-all": "^4.1.5",
-    "open-cli": "^7.0.1",
-    "ts-node": "^10.8.0",
-    "typescript": "^5.1.6",
-    "wait-on": "^6.0.1"
+    "open-cli": "^7.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "wait-on": "^7.2.0"
   }
 }

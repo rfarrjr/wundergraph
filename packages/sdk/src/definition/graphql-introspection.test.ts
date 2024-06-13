@@ -7,7 +7,7 @@ import { assert } from 'chai';
 import { buildSchema, lexicographicSortSchema, parse, printSchema } from 'graphql';
 import { buildSubgraphSchema } from './graphql-introspection';
 
-axios.defaults.adapter = require('axios/lib/adapters/http');
+axios.defaults.adapter = 'http';
 
 test('introspection via http', async () => {
 	/*

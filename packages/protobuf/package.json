@@ -28,13 +28,13 @@
     "build": "./generate.sh && tsc"
   },
   "dependencies": {
-    "long": "^5.2.0",
-    "protobufjs": "^7.2.4",
-    "ts-proto": "^1.156.1"
+    "long": "^5.2.3",
+    "protobufjs": "^7.3.1",
+    "ts-proto": "^1.178.0"
   },
   "devDependencies": {
-    "cpy-cli": "^4.1.0",
-    "typescript": "^5.1.6"
+    "cpy-cli": "^4.2.0",
+    "typescript": "^5.4.5"
   },
   "sideEffects": false
 }

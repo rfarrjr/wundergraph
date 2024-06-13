@@ -3,6 +3,7 @@ import { Context, propagation, ROOT_CONTEXT, Span, SpanKind, trace, Tracer } fro
 import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 import fp from 'fastify-plugin';
 import { FastifyRequestContext } from '../types';
+import { FastifyRequest, FastifyReply, FastifyError } from 'fastify';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { attachErrorToSpan, setStatusFromResponseCode } from '../trace/util';
 import { Attributes, Components } from '../trace/attributes';
@@ -39,7 +40,7 @@ const FastifyTelemetryPlugin: FastifyPluginAsync<TelemetryPluginOptions> = async
 		return url.path === '/health' || url.path === '/favicon.ico';
 	};
 
-	fastify.addHook('onRequest', async (req, resp) => {
+	fastify.addHook('onRequest', async (req: FastifyRequest, resp: any) => {
 		const url = uri.parse(req.url);
 
 		if (filter(url)) {
@@ -74,7 +75,7 @@ const FastifyTelemetryPlugin: FastifyPluginAsync<TelemetryPluginOptions> = async
 		});
 	});
 
-	fastify.addHook('onResponse', async (req, resp) => {
+	fastify.addHook('onResponse', async (req: FastifyRequest, resp: FastifyReply) => {
 		if (req.telemetry) {
 			req.telemetry.parentSpan.setAttributes({
 				[SemanticAttributes.HTTP_STATUS_CODE]: resp.statusCode,
@@ -85,7 +86,7 @@ const FastifyTelemetryPlugin: FastifyPluginAsync<TelemetryPluginOptions> = async
 		}
 	});
 
-	fastify.addHook('onError', async (req, resp, err) => {
+	fastify.addHook('onError', async (req: FastifyRequest, resp: any, err: FastifyError) => {
 		if (req.telemetry) {
 			attachErrorToSpan(req.telemetry.parentSpan, err);
 		}

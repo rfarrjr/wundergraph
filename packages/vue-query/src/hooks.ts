@@ -88,7 +88,7 @@ export const createHooks = <Operations extends OperationsDefinition>(client: Cli
 				enabled: options.enabled !== false && liveQuery,
 				onSuccess: unref(options.onSuccess),
 				onError: unref(options.onError),
-			})
+			} as UseSubscribeToProps)
 		);
 		if (liveQuery) {
 			return {
@@ -300,7 +300,7 @@ export const createHooks = <Operations extends OperationsDefinition>(client: Cli
 				enabled,
 				onSuccess,
 				onError,
-			})
+			}) as UseSubscribeToProps
 		);
 
 		return {

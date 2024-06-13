@@ -113,7 +113,7 @@ export type ToSelectionSet<Segments extends string[][]> = SelectionSet<
 				Tuples.Filter<Booleans.NotEqual<[]>>,
 
 				Tuples.Map<ToObject>,
-				Objects.GroupBy<GetFieldKey>,
+				Tuples.GroupBy<GetFieldKey>,
 				Objects.MapValues<ToSegments>,
 				Objects.Entries,
 				Unions.ToTuple,

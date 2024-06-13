@@ -19,12 +19,9 @@ interface SSRConfig<
 	Error = any,
 	Fn extends
 		| ((arg: string) => unknown)
-		| ((arg: [any, ...unknown[]]) => unknown)
 		| ((arg: readonly [any, ...unknown[]]) => unknown)
 		| ((arg: Record<any, any>) => unknown)
-		| ((
-				arg: string | [any, ...unknown[]] | readonly [any, ...unknown[]] | Record<any, any>
-		  ) => unknown) = BareFetcher<unknown>
+		| ((arg: string | readonly [any, ...unknown[]] | Record<any, any>) => unknown) = BareFetcher<unknown>
 > extends PublicConfiguration<Data, Error, Fn> {
 	ssr?: boolean;
 }
