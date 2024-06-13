@@ -23,9 +23,9 @@
     "svelte": "^3.54.0",
     "svelte-check": "^3.0.1",
     "tslib": "^2.4.1",
-    "typescript": "^5.0.0",
+    "typescript": "^5.4.5",
     "vite": "^4.2.0",
-    "wait-on": "^7.0.1"
+    "wait-on": "^7.2.0"
   },
   "dependencies": {
     "@tanstack/svelte-query": "^4.29.1",

@@ -3,7 +3,7 @@ import { AnyZodObject, z } from 'zod';
 import { ChatCompletionFunctions, ChatCompletionRequestMessage, CreateChatCompletionResponse, OpenAIApi } from 'openai';
 import { OperationsClient, RequestLogger } from '../server';
 import type { AxiosResponse } from 'axios';
-import { JsonSchema7ObjectType } from 'zod-to-json-schema/src/parsers/object';
+import { JsonSchema7ObjectType } from 'zod-to-json-schema';
 import { OperationError } from '../operations';
 
 type FunctionsToOperationsMap = Record<string, { operationName: string; operationType: 'QUERY' | 'MUTATION' }>;

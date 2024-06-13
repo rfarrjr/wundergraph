@@ -162,6 +162,7 @@ export interface RawUseSubscribeToProps extends SubscriptionRequestOptions {
 	onSuccess?(response: ClientResponse): void;
 	onError?(error: ResponseError): void;
 }
+
 export type UseSubscribeToProps = MaybeRef<RawUseSubscribeToProps>;
 
 export interface SubscribeToOptions extends SubscriptionRequestOptions {

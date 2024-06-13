@@ -11,7 +11,7 @@ This guide assumes you have already installed the following software:
   - curl -LO "https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip"
 - golang `>= 1.20`
 - Node.js [LTS](https://nodejs.org/en/about/releases/)
-- pnpm `7`
+- pnpm `8`
 
 ## Getting Started
 

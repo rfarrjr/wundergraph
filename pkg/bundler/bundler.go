@@ -33,6 +33,7 @@ type Bundler struct {
 	outDir                string
 	outExtension          map[string]string
 	fileLoaders           []string
+	buildContext          api.BuildContext
 	buildResult           *api.BuildResult
 	onAfterBundle         func(buildErr error, rebuild bool) error
 	onWatch               func(paths []string)
@@ -124,7 +125,7 @@ func (b *Bundler) buildErr() error {
 
 func (b *Bundler) Bundle() error {
 	if b.buildResult != nil {
-		buildResult := b.buildResult.Rebuild()
+		buildResult := b.buildContext.Rebuild()
 		b.buildResult = &buildResult
 		if len(b.buildResult.Errors) != 0 {
 			b.log.Error("Build failed",
@@ -143,7 +144,12 @@ func (b *Bundler) Bundle() error {
 			return b.onAfterBundle(b.buildErr(), true)
 		}
 	} else {
-		buildResult := b.initialBuild()
+		b.buildContext = b.initialBuild()
+		if b.buildContext == nil {
+			return fmt.Errorf("could not create build context")
+		}
+
+		buildResult := b.buildContext.Rebuild()
 		b.buildResult = &buildResult
 		if len(b.buildResult.Errors) != 0 {
 			b.log.Error("Initial Build failed",
@@ -170,7 +176,7 @@ func (b *Bundler) Watch(ctx context.Context) {
 	if len(b.watchPaths) == 0 {
 		return
 	}
-	if b.buildResult.Rebuild == nil {
+	if b.buildContext == nil {
 		return
 	}
 	if len(b.watchPaths) > 0 {
@@ -180,7 +186,7 @@ func (b *Bundler) Watch(ctx context.Context) {
 			zap.Any("watchPaths", b.watchPaths),
 			zap.Strings("fileLoaders", b.fileLoaders),
 		)
-		b.watch(ctx, b.buildResult.Rebuild)
+		b.watch(ctx, b.buildContext.Rebuild)
 	}
 }
 
@@ -192,17 +198,16 @@ func (b *Bundler) BundleAndWatch(ctx context.Context) {
 			zap.String("outFile", b.outFile),
 			zap.Strings("fileLoaders", b.fileLoaders),
 		)
-		b.watch(ctx, b.buildResult.Rebuild)
+		b.watch(ctx, b.buildContext.Rebuild)
 	}
 }
 
-func (b *Bundler) initialBuild() api.BuildResult {
+func (b *Bundler) initialBuild() api.BuildContext {
 	options := api.BuildOptions{
 		Outfile:             b.outFile,
 		Outdir:              b.outDir,
 		OutExtension:        b.outExtension,
 		Bundle:              true,
-		Incremental:         true,
 		EntryPointsAdvanced: b.entryPoints,
 		Platform:            api.PlatformNode,
 		Sourcemap:           api.SourceMapLinked,
@@ -300,9 +305,12 @@ func (b *Bundler) initialBuild() api.BuildResult {
 	for _, loader := range b.fileLoaders {
 		options.Loader[loader] = api.LoaderText
 	}
-	result := api.Build(options)
+	buildctx, err := api.Context(options)
+	if err != nil {
+		b.log.Error("Could not create build context", zap.Error(err))
+	}
 
-	return result
+	return buildctx
 }
 
 func (b *Bundler) watch(ctx context.Context, rebuild func() api.BuildResult) {

@@ -145,7 +145,7 @@ func (b *ScriptRunner) Error() error {
 		// rely only on the status code if there is no error
 		// error is also set when the process was terminated by a signal which is not an error
 		if status.Exit > 0 {
-			return fmt.Errorf("script %s failed with exit code %d:\n%s", b.name, status.Exit, b.stdErrBuf.Bytes())
+			return fmt.Errorf("script %s failed with exit code %d:\n%s", b.name, status.Exit, b.stdErrBuf.Bytes(nil))
 		}
 	}
 	return nil

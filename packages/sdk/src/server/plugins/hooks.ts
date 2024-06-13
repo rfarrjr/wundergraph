@@ -791,9 +791,9 @@ const FastifyHooksPlugin: FastifyPluginAsync<FastifyHooksOptions> = async (fasti
 		fastify.log.debug(`Registered (${registered}) upload hooks`);
 	}
 
-	fastify.addHook('onRequest', async (req, resp) => {
+	fastify.addHook('onRequest', async (req: FastifyRequest, resp: any) => {
 		if (req.telemetry) {
-			const routeConfig = req.routeConfig as GlobalHooksRouteConfig | HooksRouteConfig | undefined;
+			const routeConfig = req.routeConfig as unknown as GlobalHooksRouteConfig | HooksRouteConfig | undefined;
 			const span = trace.getSpan(req.telemetry.context);
 			if (span) {
 				if (routeConfig?.kind === 'hook') {

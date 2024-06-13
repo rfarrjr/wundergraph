@@ -5,6 +5,7 @@ import type { ORM } from '@wundergraph/orm';
 import { Webhook, WebhookHeaders, WebhookQuery } from '../../webhooks/types';
 import { Headers } from '@whatwg-node/fetch';
 import type { RequestMethod } from '../types';
+import { FastifyRequest } from 'fastify';
 import type { WebhookConfiguration } from '@wundergraph/protobuf';
 import process from 'node:process';
 import { OperationsClient } from '../operations-client';
@@ -105,9 +106,9 @@ const FastifyWebhooksPlugin: FastifyPluginAsync<FastifyWebHooksOptions> = async 
 		}
 	}
 
-	fastify.addHook('onRequest', async (req, resp) => {
+	fastify.addHook('onRequest', async (req: FastifyRequest, resp: any) => {
 		if (req.telemetry) {
-			const routeConfig = req.routeConfig as WebHookRouteConfig | undefined;
+			const routeConfig = req.routeConfig as unknown as WebHookRouteConfig | undefined;
 			const span = trace.getSpan(req.telemetry.context);
 			if (span && routeConfig?.kind === 'webhook') {
 				span.setAttributes({

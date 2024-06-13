@@ -13,6 +13,7 @@ import type { AsyncStore, OperationsAsyncContext } from '../operations-context';
 import { propagation, trace } from '@opentelemetry/api';
 import { createClientRequest } from '../server';
 import { FastifyRequestBody } from '../types';
+import { FastifyRequest } from 'fastify';
 import { Attributes } from '../trace/attributes';
 import { attachErrorToSpan } from '../trace/util';
 import { createLogger } from '../logger';
@@ -218,9 +219,9 @@ const FastifyFunctionsPlugin: FastifyPluginAsync<FastifyFunctionsOptions> = asyn
 		}
 	}
 
-	fastify.addHook('onRequest', async (req, resp) => {
+	fastify.addHook('onRequest', async (req: FastifyRequest, resp: any) => {
 		if (req.telemetry) {
-			const routeConfig = req.routeConfig as FunctionRouteConfig;
+			const routeConfig = req.routeConfig as unknown as FunctionRouteConfig;
 			const span = trace.getSpan(req.telemetry.context);
 			if (span) {
 				if (routeConfig?.kind === 'function') {

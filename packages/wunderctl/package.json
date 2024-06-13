@@ -35,18 +35,18 @@
     "url": "https://github.com/wundergraph/wundergraph/issues"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
-    "@types/node": "^14.18.16",
-    "@types/rimraf": "^3.0.0",
-    "@types/tar": "^6.1.4",
-    "typescript": "^5.1.6"
+    "@types/debug": "^4.1.12",
+    "@types/node": "^14.18.63",
+    "@types/rimraf": "^3.0.2",
+    "@types/tar": "^6.1.13",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "axios": "^0.26.1",
-    "debug": "^4.3.4",
+    "axios": "^1.7.2",
+    "debug": "^4.3.5",
     "execa": "5.1.1",
     "rimraf": "^3.0.2",
-    "tar": "^6.1.13"
+    "tar": "^6.2.1"
   },
   "sideEffects": false
 }

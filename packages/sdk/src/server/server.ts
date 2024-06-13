@@ -2,12 +2,12 @@ import closeWithGrace from 'close-with-grace';
 import { Headers, fetch } from '@whatwg-node/fetch';
 import process from 'node:process';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import Fastify, { FastifyInstance } from 'fastify';
+import * as Fastify from 'fastify';
 import { ORM } from '@wundergraph/orm';
 import { pino } from 'pino';
 import path from 'path';
 import fs from 'fs';
-import { resolveServerLogLevel, ServerLogger } from '../logger';
+import { resolveServerLogLevel, ServerLogger, PinoLogLevel } from '../logger';
 import { resolveConfigurationVariable } from '../configure/variables';
 import { onParentProcessExit } from '../utils/process';
 import { customGqlServerMountPath } from './util';
@@ -265,7 +265,7 @@ export const createServer = async ({
 	gracefulShutdown,
 	serverHost,
 	serverPort,
-}: CreateServerOptions): Promise<FastifyInstance> => {
+}: CreateServerOptions): Promise<Fastify.FastifyInstance> => {
 	if (config.api?.serverOptions?.logger?.level && process.env.WG_DEBUG_MODE !== 'true') {
 		logger.level = resolveServerLogLevel(config.api.serverOptions.logger.level);
 	}
@@ -276,8 +276,8 @@ export const createServer = async ({
 		: '';
 
 	let id = 0;
-	const fastify = Fastify({
-		logger,
+	const fastify: Fastify.FastifyInstance = Fastify.fastify({
+		logger: { level: process.env.WG_DEBUG_MODE === 'true' ? PinoLogLevel.Debug : PinoLogLevel.Info },
 		disableRequestLogging: true,
 		genReqId: (req) => {
 			if (req.headers['x-request-id']) {

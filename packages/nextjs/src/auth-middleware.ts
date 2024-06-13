@@ -1,4 +1,4 @@
-import { BareFetcher, Middleware, SWRHook } from 'swr';
+import { BareFetcher, Middleware, SWRHook, SWRConfiguration } from 'swr';
 import { useWunderGraphContext } from './context';
 
 type MiddlewareReturn = ReturnType<Middleware>;
@@ -32,6 +32,6 @@ export const useAuthMiddleware: AuthMiddleware = (useSWRNext, getToken) => {
 			return fetcher?.(...args);
 		};
 
-		return useSWRNext(key, fetcherWithAuth, config) as any;
+		return useSWRNext(key, fetcherWithAuth, config as SWRConfiguration) as any;
 	};
 };
