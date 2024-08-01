@@ -30,15 +30,15 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^4.27.0",
-    "@wundergraph/sdk": "^0.184.2",
-    "@wundergraph/vue-query": "^0.2.33",
+    "@wundergraph/sdk": "workspace:*",
+    "@wundergraph/vue-query": "workspace:*",
     "unimport": "^3.0.6",
     "vitest": "^0.29.8",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
   "peerDependencies": {
-    "@wundergraph/sdk": "^0.143.1"
+    "@wundergraph/sdk": "workspace:*"
   },
   "dependenciesMeta": {
     "@wundergraph/vue-query": {

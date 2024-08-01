@@ -15,7 +15,7 @@
     "@types/node": "20.2.4",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.2.4",
-    "@wundergraph/sdk": "^0.184.2",
+    "@wundergraph/sdk": "workspace:*",
     "autoprefixer": "10.4.14",
     "graphql": "^16.6.0",
     "next": "13.4.4",

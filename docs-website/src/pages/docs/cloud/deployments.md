@@ -131,7 +131,7 @@ As an example, let's check our [cloud-starter repository](https://github.com/wun
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
-    "typescript": "^4.8.2"
+    "typescript": "^5.4.5"
   }
 }
 ```
@@ -216,7 +216,7 @@ Let's check the `apps/api/package.json` file:
   },
   "devDependencies": {
     "@types/node": "^17.0.15",
-    "typescript": "^4.8.2"
+    "typescript": "^5.4.5"
   }
 }
 ```

@@ -44,7 +44,7 @@ if test ${target} = "workspace"; then
 fi
 
 # Move to repo root
-cd `dirname ${0}`/../..
+#cd `dirname ${0}`/../..
 
 cd examples
 for example in `ls -d */`; do
